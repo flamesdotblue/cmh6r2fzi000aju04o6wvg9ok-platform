@@ -22,8 +22,8 @@ export default function Hero() {
             Design, deploy, and scale AI voice & chat agents with payments, scheduling, and analytics — all in one place.
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
-            <a href="#assistant" className="inline-flex h-11 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-500 via-blue-500 to-amber-400 px-6 font-medium text-[#0b0b12] shadow-lg shadow-violet-500/10 hover:opacity-95">Meet the robot guide</a>
-            <a href="#assistant" className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 px-6 text-white/80 hover:bg-white/5">Try the 3D demo</a>
+            <a href="#robot" className="inline-flex h-11 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-500 via-blue-500 to-amber-400 px-6 font-medium text-[#0b0b12] shadow-lg shadow-violet-500/10 hover:opacity-95">Meet the robot guide</a>
+            <a href="#robot" className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 px-6 text-white/80 hover:bg-white/5">See 3D demo</a>
           </div>
           <p className="mt-3 text-xs text-white/50">Free plan • No credit card • Ship in minutes</p>
         </div>

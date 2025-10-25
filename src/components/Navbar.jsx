@@ -13,13 +13,13 @@ export default function Navbar() {
             <span className="text-white">agie.dev</span>
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm text-white/70">
-            <a href="#assistant" className="hover:text-white">Robot guide</a>
-            <a href="#assistant" className="hover:text-white">Demo</a>
-            <a href="#assistant" className="hover:text-white">Pricing</a>
+            <a href="#robot" className="hover:text-white">Robot</a>
+            <a href="#hero" className="hover:text-white">Features</a>
+            <a href="#hero" className="hover:text-white">Pricing</a>
           </nav>
           <div className="flex items-center gap-3">
-            <a href="#assistant" className="hidden sm:inline-flex h-9 items-center rounded-lg border border-white/10 px-3 text-sm text-white/80 hover:bg-white/5">Meet Agie</a>
-            <a href="#assistant" className="inline-flex h-9 items-center rounded-lg bg-gradient-to-tr from-violet-500 via-blue-500 to-amber-400 px-4 text-sm font-medium text-[#0b0b12] hover:opacity-95">Get started</a>
+            <a href="#robot" className="hidden sm:inline-flex h-9 items-center rounded-lg border border-white/10 px-3 text-sm text-white/80 hover:bg-white/5">Meet Agie</a>
+            <a href="#robot" className="inline-flex h-9 items-center rounded-lg bg-gradient-to-tr from-violet-500 via-blue-500 to-amber-400 px-4 text-sm font-medium text-[#0b0b12] hover:opacity-95">Try the demo</a>
           </div>
         </div>
       </div>

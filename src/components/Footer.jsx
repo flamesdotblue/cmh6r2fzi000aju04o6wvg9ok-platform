@@ -8,7 +8,7 @@ export default function Footer() {
         <nav className="flex items-center gap-6">
           <a href="#hero" className="hover:text-white">Privacy</a>
           <a href="#hero" className="hover:text-white">Terms</a>
-          <a href="#assistant" className="hover:text-white">Contact</a>
+          <a href="#robot" className="hover:text-white">Contact</a>
         </nav>
       </div>
     </footer>

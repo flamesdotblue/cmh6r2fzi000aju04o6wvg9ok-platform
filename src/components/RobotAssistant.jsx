@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mic, MicOff, Volume2, Send, Bot as BotIcon, Pause, Play, Sparkles } from 'lucide-react';
+import { Mic, MicOff, Volume2, Send, Bot as BotIcon, Pause, Play, Monitor } from 'lucide-react';
 
 function useModelViewer() {
   React.useEffect(() => {
@@ -77,7 +77,7 @@ const cannedReplies = [
   },
   {
     match: /hello|hi|hey/i,
-    reply: 'Hello! I\'m Agie, your robot guide. Ask me about features, pricing, or deployment.'
+    reply: "Hello! I'm Agie, your robot guide. Ask me about features, pricing, or deployment."
   }
 ];
 
@@ -91,13 +91,14 @@ export default function RobotAssistant() {
   const [messages, setMessages] = React.useState([
     { role: 'bot', text: "Hi, I'm Agie — your robot guide. Ask me anything about agie.dev!" }
   ]);
+  const [viewer, setViewer] = React.useState('hyper3d'); // 'hyper3d' | 'builtin'
 
   const { speak } = useSpeech();
 
   const onResult = (text) => setInput(text);
   const onStart = () => {
     setListening(true);
-    playAnimation('Walk', 1400, 'Idle');
+    if (viewer === 'builtin') playAnimation('Walking', 1200, 'Idle');
   };
   const onEnd = () => {
     setListening(false);
@@ -120,7 +121,7 @@ export default function RobotAssistant() {
     const botMsg = { role: 'bot', text: replyText };
     setMessages((m) => [...m, userMsg, botMsg]);
     if (!muted) speak(replyText);
-    playAnimation('Wave', 1600, 'Idle');
+    if (viewer === 'builtin') playAnimation('Wave', 1400, 'Idle');
   };
 
   const toggleMic = () => {
@@ -137,7 +138,9 @@ export default function RobotAssistant() {
   };
 
   const handleQuick = (name, say) => {
-    playAnimation(name, 1500, 'Idle');
+    if (viewer === 'builtin') {
+      playAnimation(name, 1500, 'Idle');
+    }
     if (say && !muted) speak(say);
   };
 
@@ -149,41 +152,56 @@ export default function RobotAssistant() {
 
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
         <div>
-          <div className="relative">
+          <div className="flex items-center gap-3 text-xs text-white/70">
+            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-1"><Monitor size={12} /> Viewer</span>
+            <button onClick={() => setViewer('hyper3d')} className={`rounded-md px-3 py-1 border ${viewer==='hyper3d' ? 'border-violet-400/40 bg-white/10' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}>Hyper3D</button>
+            <button onClick={() => setViewer('builtin')} className={`rounded-md px-3 py-1 border ${viewer==='builtin' ? 'border-violet-400/40 bg-white/10' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}>Built‑in</button>
+          </div>
+
+          <div className="relative mt-3">
             <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-tr from-violet-500/10 via-blue-500/10 to-amber-400/10 blur-2xl" />
             <div className="rounded-3xl border border-white/10 bg-white/5 p-3">
               <div className="aspect-square w-full overflow-hidden rounded-2xl bg-[#0b0b12]">
-                <model-viewer
-                  ref={robotRef}
-                  src="https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb"
-                  alt="Agie — interactive robot guide"
-                  autoplay
-                  animation-name={animation}
-                  ar
-                  camera-controls
-                  exposure="0.95"
-                  shadow-intensity="0.6"
-                  camera-orbit="45deg 75deg 3.2m"
-                  style={{ width: '100%', height: '100%', background: 'transparent' }}
-                />
+                {viewer === 'hyper3d') ? (
+                  <iframe
+                    title="Agie — Hyper3D"
+                    src="https://hyper3d.ai/rodin/f2ca6400-9dd5-4d7b-9a7e-4890cc65d555"
+                    className="h-full w-full"
+                    allow="fullscreen; xr-spatial-tracking; accelerometer; magnetometer; gyroscope; web-share"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                ) : (
+                  <model-viewer
+                    ref={robotRef}
+                    src="https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb"
+                    alt="Agie — interactive robot guide"
+                    autoplay
+                    animation-name={animation}
+                    camera-controls
+                    exposure="0.95"
+                    shadow-intensity="0.6"
+                    camera-orbit="45deg 75deg 3.0m"
+                    style={{ width: '100%', height: '100%', background: 'transparent' }}
+                  />
+                )}
               </div>
             </div>
           </div>
 
           <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-            <button onClick={() => handleQuick('Wave', 'Hello! I can wave, walk, and chat about agie.dev.')} className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10">👋 Wave</button>
-            <button onClick={() => handleQuick('Walk', 'Walking into your product-led future!')} className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10">🚶 Walk</button>
-            <button onClick={() => handleQuick('Dance', 'Shipping is a dance — you lead, I follow.')} className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10">💃 Dance</button>
+            <button onClick={() => handleQuick('Wave', 'Hello! I can wave and chat about agie.dev.')} className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10">👋 Wave</button>
+            <button onClick={() => handleQuick('Walking', 'Walking into your product-led future!')} className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10">🚶 Walk</button>
+            <button onClick={() => handleQuick('Jump', 'Let’s jump into shipping!')} className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10">🕴 Jump</button>
             <button onClick={() => setAnimation((a) => (a === 'Idle' ? 'Standing' : 'Idle'))} className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 hover:bg-white/10">{animation === 'Idle' ? <span className="inline-flex items-center gap-1"><Pause size={12} /> Idle</span> : <span className="inline-flex items-center gap-1"><Play size={12} /> Play</span>}</button>
           </div>
         </div>
 
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
-            <Sparkles size={14} /> Robot product guide
+            <BotIcon size={14} /> Robot product guide
           </div>
-          <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Talk, walk, and learn with Agie</h2>
-          <p className="mt-2 text-white/70">Ask about features, pricing, or how to deploy. Use the mic for voice, or type below. Agie responds with voice and moves for emphasis.</p>
+          <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Talk to Agie and explore the 3D model</h2>
+          <p className="mt-2 text-white/70">Use the mic or type to ask about features, pricing, or deployment. Agie replies with voice and motion when using the built‑in model. The Hyper3D viewer shows your custom character.</p>
 
           <div className="mt-6 h-[280px] overflow-y-auto rounded-2xl border border-white/10 bg-white/5 p-4 space-y-3">
             {messages.map((m, idx) => (

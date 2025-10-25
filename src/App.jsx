@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import RobotGuide from './components/RobotGuide';
+import RobotAssistant from './components/RobotAssistant';
 import Footer from './components/Footer';
 
 export default function App() {
@@ -10,7 +10,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <RobotGuide />
+        <RobotAssistant />
       </main>
       <Footer />
     </div>

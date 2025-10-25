@@ -162,7 +162,7 @@ export default function RobotAssistant() {
             <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-tr from-violet-500/10 via-blue-500/10 to-amber-400/10 blur-2xl" />
             <div className="rounded-3xl border border-white/10 bg-white/5 p-3">
               <div className="aspect-square w-full overflow-hidden rounded-2xl bg-[#0b0b12]">
-                {viewer === 'hyper3d') ? (
+                {viewer === 'hyper3d' ? (
                   <iframe
                     title="Agie — Hyper3D"
                     src="https://hyper3d.ai/rodin/f2ca6400-9dd5-4d7b-9a7e-4890cc65d555"
